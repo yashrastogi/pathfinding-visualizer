@@ -13,21 +13,27 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Divider,
+  Divider
 } from "@material-ui/core";
-import * as Icon from "@material-ui/icons";
+import * as MaterialIcon from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }));
+
+function onDrawerClick(props) {
+  console.log("Hey Bro!");
+  console.log(props);
+}
 
 export default function BottomAppBar() {
   const classes = useStyles();
-  const [currentPage, setCurrentPage] = useState("Test");
+  const appName = "Pathfinding Visualizer";
+  const [currentPage, setCurrentPage] = useState("Home");
   const [state, setState] = useState({
-    drawerOpen: false,
+    drawerOpen: false
   });
 
   const toggleDrawer = (open) => (event) => {
@@ -43,25 +49,21 @@ export default function BottomAppBar() {
   const list = (anchor) => (
     <div onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <Icon.Inbox /> : <Icon.Mail />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button key="Home" onClick={onDrawerClick}>
+          <ListItemIcon>
+            <MaterialIcon.Home />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <Icon.Inbox /> : <Icon.Mail />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button key="About">
+          <ListItemIcon>
+            <MaterialIcon.Info />
+          </ListItemIcon>
+          <ListItemText primary="About" />
+        </ListItem>
       </List>
     </div>
   );
@@ -77,7 +79,7 @@ export default function BottomAppBar() {
             aria-label="open drawer"
             onClick={toggleDrawer(true)}
           >
-            <Icon.Menu />
+            <MaterialIcon.Menu />
           </IconButton>
           <Drawer
             anchor="left"
@@ -87,29 +89,29 @@ export default function BottomAppBar() {
             {list("left")}
           </Drawer>
           <Typography className={classes.text} variant="h5">
-            Pathfinding Visualizer{"  "}
-            <Icon.NavigateNext
-              fontSize="large"
+            <div
               style={{
-                display: "inline-flex",
-                position: "relative"
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap"
               }}
-            ></Icon.NavigateNext>
-            {"  "}
-            {currentPage}
+            >
+              <span>{appName}</span>
+              &ensp;
+              <MaterialIcon.ArrowForward />
+              &ensp;
+              <span>{currentPage}</span>
+            </div>
           </Typography>
           <div className={classes.grow} />
-          <IconButton color="inherit">
-            <Icon.Search />
-          </IconButton>
-          <IconButton edge="end" color="inherit">
-            <Icon.More />
+          <IconButton color="inherit" edge="end">
+            <MaterialIcon.Search />
           </IconButton>
         </Toolbar>
       </AppBar>
       <Toolbar />
       <Container>
-        <Home setPage={setCurrentPage}></Home>
+        <Home></Home>
       </Container>
     </React.Fragment>
   );
