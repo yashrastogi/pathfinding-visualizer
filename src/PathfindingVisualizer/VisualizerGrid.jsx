@@ -1,21 +1,32 @@
-import { Table, TableCell, TableRow, TableBody } from "@material-ui/core";
+import { Table, TableCell, TableRow, TableBody, Icon } from '@material-ui/core';
+import * as MaterialIcon from '@material-ui/icons';
 
-let grid = Array.from(Array(50), () => new Array(50));
-
-export default function VisualizerGrid() {
+export default function VisualizerGrid(props) {
   return (
-    <Table>
-      <TableBody>
-        {grid.map((row, ix1) => {
+    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <tbody>
+        {props.grid.map((row, ix1) => {
           return (
-            <TableRow key={ix1}>
+            <tr key={ix1}>
               {row.map((el, ix2) => {
-                return <TableCell key={ix2}>{el}</TableCell>;
+                return (
+                  <td
+                    id="grid-cell"
+                    style={{
+                      border: '1px solid black',
+                      backgroundColor: el.visited ? '#a8a8a8' : 'white',
+                    }}
+                    key={ix2 + ix1 * row.length}>
+                    {el.start && <Icon style={{ color: '#333333' }}>home</Icon>}
+                    {el.end && <Icon style={{ color: '#333333' }}>exit_to_app</Icon>}
+                    {!el.start && !el.end && <Icon></Icon>}
+                  </td>
+                );
               })}
-            </TableRow>
+            </tr>
           );
         })}
-      </TableBody>
-    </Table>
+      </tbody>
+    </table>
   );
 }
