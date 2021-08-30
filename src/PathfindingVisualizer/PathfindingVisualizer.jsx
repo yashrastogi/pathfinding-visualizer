@@ -44,7 +44,7 @@ export default function BottomAppBar() {
     setState({...state, drawerOpen: open});
   };
 
-  const toggleDialog = (open) => setState({...state, dialogOpen: open});
+  const toggleDialog = () => setState({...state, dialogOpen: true});
 
   const list = () => (
     <div onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
@@ -58,12 +58,11 @@ export default function BottomAppBar() {
       </List>
       <Divider />
       <List>
-        <ListItem button key="About" onClick={toggleDialog(false)}>
+        <ListItem button key="About" onClick={toggleDialog}>
           <ListItemIcon>
             <MaterialIcon.Info />
           </ListItemIcon>
           <ListItemText primary="About" />
-          <AboutDialog />
         </ListItem>
       </List>
     </div>
@@ -72,25 +71,21 @@ export default function BottomAppBar() {
   const AboutDialog = () => (
     <Dialog
       open={state['dialogOpen']}
-      onClose={toggleDialog(false)}
+      onClose={toggleDialog}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Use Google's location service?"}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">About</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Let Google help apps determine location. This means sending anonymous location
-          data to Google, even when no apps are running.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto vel vero
+          perferendis repudiandae sint eligendi expedita amet. Qui nostrum id laudantium
+          vero, aliquid officiis voluptate culpa quae modi non earum!
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={toggleDialog(false)} color="primary">
-          Disagree
-        </Button>
-        <Button onClick={toggleDialog(false)} color="primary" autoFocus>
-          Agree
+        <Button onClick={toggleDialog} color="primary" autoFocus>
+          Close
         </Button>
       </DialogActions>
     </Dialog>
@@ -130,6 +125,7 @@ export default function BottomAppBar() {
 
   return (
     <React.Fragment>
+      <AboutDialog />
       <MyAppBar />
       <Home />
     </React.Fragment>

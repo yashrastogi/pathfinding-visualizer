@@ -3,7 +3,20 @@
   text-align: center;
 }
 
-table,
-tr {
+.material-icons {
+  color: #333333;
+}
+
+.visited {
+  background-color: #a8a8a8;
+}
+
+.grid,
+.grid-row {
   width: 100%;
+  border-collapse: collapse;
+}
+
+.grid-cell {
+  border: 1px solid black;
 }
